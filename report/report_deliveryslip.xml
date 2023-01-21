@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template inherit_id="stock.report_delivery_document" id="report_delivery_document_inherited">
+        <!-- In case stock picking without move_line_ids -->
+        <xpath expr="//table[@name='stock_move_table']/thead/tr/th[@name='th_sm_product']" position="after">
+            <t t-if="o.picking_type_code == 'internal'">
+                <th name="th_sm_location_id"><strong>Source Location</strong></th>
+                <th name="th_sm_location_dest_id"><strong>Destination Location</strong></th>
+            </t>
+        </xpath>
+        <xpath expr="//table[@name='stock_move_table']/tbody/tr/td[1]" position="after">
+            <t t-if="move.picking_id.picking_type_code == 'internal'">
+                <td name="td_sm_location_id">
+                    <span t-field="move.location_id"/>
+                </td>
+                <td name="td_sm_location_dest_id">
+                    <span t-field="move.location_dest_id"/>
+                </td>
+            </t>
+        </xpath>
+        <!-- In case stock picking with move_line_ids -->
+        <xpath expr="//table[@name='stock_move_line_table']/thead/tr/th[@name='th_sml_product']" position="after">
+            <t t-if="o.picking_type_code == 'internal'">
+                <th name="th_sml_location_id"><strong>Source Location</strong></th>
+                <th name="th_sml_location_dest_id"><strong>Destination Location</strong></th>
+            </t>
+        </xpath>
+    </template>
+
+
+
+</odoo>
